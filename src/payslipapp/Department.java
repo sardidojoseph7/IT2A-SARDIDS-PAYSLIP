@@ -87,11 +87,26 @@ public class Department {
                     dp.viewDepartment();
                     break;
                 case 3:
+                    dp.viewDepartment();
                    String sqlup = "UPDATE Department SET Department_Head = ?, Location = ?, Basic_Salary = ?, Late_Deduction = ?, Absent_Deduction = ? WHERE Department_ID = ?";
-                    System.out.print("Enter Department ID to Update: ");
-                    int idup = sc.nextInt();
-                    sc.nextLine(); // Consume newline
-
+                   
+                   
+                   int depid;
+                while (true) {
+                System.out.print("Enter Deparment ID to update: ");
+                if (sc.hasNextInt()) {
+                    depid = sc.nextInt();
+                    if (conni.getSingleValues("SELECT Department_ID FROM Department WHERE Department_ID = ?", depid) != 0) {
+                        break;
+                    } else {
+                        System.out.println("Selected Department doesn't exist.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a integer Department ID.");
+                    sc.next(); 
+                }
+            }
+                    
                     System.out.print("Enter new Department Head: ");
                     String newhead = sc.nextLine();
                     System.out.print("Enter new Location: ");
@@ -106,16 +121,30 @@ public class Department {
 
                     
                     
-                    conni.updateEmployee(sqlup, newhead, newloc, newsal, newlate, newabsent,idup);
+                    conni.updateEmployee(sqlup, newhead, newloc, newsal, newlate, newabsent,depid);
                     break;
                 
                 case 4:
+                    dp.viewDepartment();
+                    
                     String sqldel = "DELETE FROM Department WHERE Department_ID = ? ";
+                 int del;
+                while (true) {
+                System.out.print("Enter Department ID to delete: ");
+                if (sc.hasNextInt()) {
+                    del = sc.nextInt();
+                    if (conni.getSingleValues("SELECT Department_ID  FROM Department  WHERE Department_ID = ?", del) != 0) {
+                        break;
+                    } else {
+                        System.out.println("Selected Department  doesn't exist.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a integer Department ID.");
+                    sc.next(); 
+                }
+            }
                     
-                    System.out.print("Enter Department ID to delete: ");
-                    int idel = sc.nextInt();
-                    
-                    conni.deleteEmployee(sqldel, idel);
+                    conni.deleteEmployee(sqldel, del);
                     break;
                 case 5:
                     System.out.println("Exiting.....");

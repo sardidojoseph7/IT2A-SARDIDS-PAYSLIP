@@ -88,9 +88,23 @@ public class Employee {
                 break;
             case 3:
                 ep.viewEmployee();
+                
                 String sqlUPDATE  = "UPDATE Employee SET Address = ?,  Contact_No = ?,  Age = ?,  Email = ?, Status = ? WHERE Employee_ID = ? ";
-                System.out.print("Enter Employeed ID to update: ");
-                int idUP = sc.nextInt();
+               int idem;
+                while (true) {
+                System.out.print("Enter Employee ID to Update: ");
+                if (sc.hasNextInt()) {
+                    idem = sc.nextInt();
+                    if (conni.getSingleValues("SELECT Employee_ID  FROM Employee  WHERE Employee_ID = ?", idem) != 0) {
+                        break;
+                    } else {
+                        System.out.println("Selected Employee doesn't exist.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a integer Employee ID.");
+                    sc.next(); 
+                }
+            }
                 
                 System.out.print("Enter new address: ");
                 String newadd = sc.next();
@@ -103,13 +117,30 @@ public class Employee {
                 System.out.print("Enter new Status: ");
                 String newstats = sc.next();
                 
-                conni.updateEmployee(sqlUPDATE, newadd, newnum, newage, newemai, newstats,idUP );
+                conni.updateEmployee(sqlUPDATE, newadd, newnum, newage, newemai, newstats,idem );
                 break;
             case 4:
                  ep.viewEmployee();
+                 
                 String sqlDELETE = "DELETE FROM Employee WHERE Employee_ID = ?";
-                System.out.print("Enter Employee ID to delete: ");
-                int idDEL  = sc.nextInt();
+               
+                int idDEL;
+                while (true) {
+                System.out.print("Enter Employee ID to Delete: ");
+                if (sc.hasNextInt()) {
+                    idDEL = sc.nextInt();
+                    if (conni.getSingleValues("SELECT Employee_ID  FROM Employee  WHERE Employee_ID = ?", idDEL) != 0) {
+                        break;
+                    } else {
+                        System.out.println("Selected Employee doesn't exist.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a integer Employee ID.");
+                    sc.next(); 
+                }
+            }
+                
+                
                 conni.deleteEmployee(sqlDELETE, idDEL);
                 
                 break;

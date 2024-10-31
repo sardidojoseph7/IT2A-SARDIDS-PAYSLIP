@@ -19,10 +19,41 @@ public class AttendanceSlip {
        Department  dp = new Department();
        dp.viewDepartment();
        
-       System.out.print("Enter Employee ID: ");
-       int idem = sc.nextInt();
-       System.out.print("Enter Department ID: ");
-       int depid = sc.nextInt();
+         int idem;
+                while (true) {
+                System.out.print("Enter Employee ID: ");
+                if (sc.hasNextInt()) {
+                    idem = sc.nextInt();
+                    if (conni.getSingleValues("SELECT Employee_ID  FROM Employee  WHERE Employee_ID = ?", idem) != 0) {
+                        break;
+                    } else {
+                        System.out.println("Selected Employee doesn't exist.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a integer Employee ID.");
+                    sc.next(); 
+                }
+            }
+        
+       
+        int depid;
+                while (true) {
+                System.out.print("Enter Deparment ID: ");
+                if (sc.hasNextInt()) {
+                    depid = sc.nextInt();
+                    if (conni.getSingleValues("SELECT Department_ID FROM Department WHERE Department_ID = ?", depid) != 0) {
+                        break;
+                    } else {
+                        System.out.println("Selected Department doesn't exist.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a integer Department ID.");
+                    sc.next(); 
+                }
+            }
+
+       
+       
        System.out.print("No of. Working Days: ");
        int days = sc.nextInt();
        System.out.print("No. of Late Days: ");
@@ -98,9 +129,23 @@ public class AttendanceSlip {
                     as.viewAttendanceSlip();
                     String sqlupdate = "UPDATE AttendanceSlip SET No_of_Working_Days = ?, No_of_Late_Days = ?, No_of_Absences = ?, Loan = ? WHERE AttendanceSlip_ID = ?";
                     
-                    System.out.print("Enter Attendance Slip ID :");
-                    int atid = sc.nextInt();
-                    
+                                       
+                     int atid;
+                while (true) {
+                System.out.print("Enter Attendance Slip ID: ");
+                if (sc.hasNextInt()) {
+                    atid = sc.nextInt();
+                    if (conni.getSingleValues("SELECT AttendanceSlip_ID  FROM AttendanceSlip  WHERE AttendanceSlip_ID = ?", atid) != 0) {
+                        break;
+                    } else {
+                        System.out.println("Selected Attendance Slip doesn't exist.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a integer Attendance Slip ID.");
+                    sc.next(); 
+                }
+            }
+
                     System.out.print("Enter new no of working days: ");
                     int nework = sc.nextInt();
                     System.out.print("Enter new no of Later Days: ");
@@ -116,11 +161,24 @@ public class AttendanceSlip {
                     break;
                 case 4:
                     as.viewAttendanceSlip();
-                    String sqldelete = "DELETE FROM AttendanceSlip WHERE AttendanceSlip_ID = ? ";
+                    String sqldelete = "DELETE FROM AttendanceSlip WHERE AttendanceSlip_ID = ? ";      
                     
-                    System.out.print("Enter Attendance Slip ID to Delete: ");
-                    int del = sc.nextInt();
-                    
+                      int del;
+                while (true) {
+                System.out.print("Enter Attendance Slip ID: ");
+                if (sc.hasNextInt()) {
+                    del = sc.nextInt();
+                    if (conni.getSingleValues("SELECT AttendanceSlip_ID  FROM AttendanceSlip  WHERE AttendanceSlip_ID = ?", del) != 0) {
+                        break;
+                    } else {
+                        System.out.println("Selected Attendance Slip doesn't exist.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a integer Attendance Slip ID.");
+                    sc.next(); 
+                }
+            }
+                
                     conni.deleteEmployee(sqldelete, del);
                     break;
                 case 5:

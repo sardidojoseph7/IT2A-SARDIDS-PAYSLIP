@@ -18,12 +18,57 @@ public class PaySlip {
         AttendanceSlip as = new AttendanceSlip();
         as.viewAttendanceSlip();
 
-        System.out.print("Enter Employee ID: ");
-        int emid = sc.nextInt();
-        System.out.print("Enter Department ID: ");
-        int depid = sc.nextInt();
-        System.out.print("Enter Attendance Slip ID: ");
-        int att = sc.nextInt();
+       int emid;
+                while (true) {
+                System.out.print("Enter Employee ID: ");
+                if (sc.hasNextInt()) {
+                    emid = sc.nextInt();
+                    if (conni.getSingleValues("SELECT Employee_ID  FROM Employee  WHERE Employee_ID = ?", emid) != 0) {
+                        break;
+                    } else {
+                        System.out.println("Selected Employee doesn't exist.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a integer Employee ID.");
+                    sc.next(); 
+                }
+            }
+        
+        
+        
+         int depid;
+                while (true) {
+                System.out.print("Enter Deparment ID: ");
+                if (sc.hasNextInt()) {
+                    depid = sc.nextInt();
+                    if (conni.getSingleValues("SELECT Department_ID FROM Department WHERE Department_ID = ?", depid) != 0) {
+                        break;
+                    } else {
+                        System.out.println("Selected Department doesn't exist.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a integer Department ID.");
+                    sc.next(); 
+                }
+            }
+                
+       
+          int att;
+                while (true) {
+                System.out.print("Enter Attendance Slip ID: ");
+                if (sc.hasNextInt()) {
+                    att = sc.nextInt();
+                    if (conni.getSingleValues("SELECT AttendanceSlip_ID  FROM AttendanceSlip  WHERE AttendanceSlip_ID = ?", att) != 0) {
+                        break;
+                    } else {
+                        System.out.println("Selected Attendance Slip doesn't exist.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a integer Attendance Slip ID.");
+                    sc.next(); 
+                }
+            }
+
 
         String basic = "SELECT Basic_Salary FROM Department WHERE Department_ID = ?";
         double sala = conni.getSingleValues(basic, depid);
@@ -53,7 +98,7 @@ public class PaySlip {
         String loan = "SELECT Loan FROM AttendanceSlip WHERE AttendanceSlip_ID = ?";
         double loans = conni.getSingleValues(loan, att);
 
-        double loan1 = loans + loans;
+        double loan1 = loans;
 
         System.out.println("Total Absent Deduction: " + AbsentDeduction);
         System.out.println("Total Loan: " + loan1);
@@ -128,7 +173,7 @@ public class PaySlip {
                 
             }
             System.out.println("");
-            System.out.println("Do you want to continue? Yes or No: ");
+            System.out.print("Do you want to continue? Yes or No: ");
             res = sc.next();
     }while(res.equalsIgnoreCase("yes"));
         

@@ -12,15 +12,29 @@ public class PaySlipApp {
         boolean exit = true;
         do{
             System.out.println("");
-        System.out.println("1. Employee ");
-        System.out.println("2. Department");
-            System.out.println("3. Attendance Slip");
-            System.out.println("4. Payslip");
-            System.out.println("5. Exit the application");
+        System.out.println(" -------------------------------");   
+        System.out.println(" | 1. Employee                 |");
+        System.out.println(" | 2. Department               |");
+        System.out.println(" | 3. Attendance Slip          |");
+        System.out.println(" | 4. Payslip                  |");
+        System.out.println(" | 5. Exit the application     |");
+        System.out.println(" -------------------------------"); 
+     
         int choice;
-        
-        System.out.print("Enter Choice: ");
-        choice = sc.nextInt();
+            while (true) {
+                System.out.print("Enter choice: ");
+                if (sc.hasNextInt()) {
+                    choice = sc.nextInt();
+                    if (choice >= 1 && choice <= 5) {
+                        break;
+                    } else {
+                        System.out.println("Please enter a number between 1 and 5.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a valid number.");
+                    sc.next();
+                }
+            }
         
         
         switch(choice){
