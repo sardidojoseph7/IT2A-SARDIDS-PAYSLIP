@@ -53,7 +53,7 @@ public class AttendanceSlip {
             }
 
        
-       
+                
        System.out.print("No of. Working Days: ");
        int days = sc.nextInt();
        System.out.print("No. of Late Days: ");
@@ -62,6 +62,8 @@ public class AttendanceSlip {
        int absent = sc.nextInt();
        System.out.print("Loan: ");
        double loan = sc.nextDouble();
+       
+       
        
        
        String sqlAdd = "INSERT INTO AttendanceSlip (Employee_ID, Department_ID, No_of_Working_Days, No_of_Late_Days, No_of_Absences, Loan) VALUES (?,?,?,?,?,?)";

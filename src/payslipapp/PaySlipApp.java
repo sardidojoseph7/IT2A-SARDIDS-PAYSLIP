@@ -19,7 +19,6 @@ public class PaySlipApp {
         System.out.println(" | 4. Payslip                  |");
         System.out.println(" | 5. Exit the application     |");
         System.out.println(" -------------------------------"); 
-     
         int choice;
             while (true) {
                 System.out.print("Enter choice: ");

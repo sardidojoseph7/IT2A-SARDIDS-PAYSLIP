@@ -107,28 +107,61 @@ public class PaySlip {
         double totalFinalSalary = salary - LateDeduction - AbsentDeduction;
         System.out.println("");
         System.out.println("Total Final Salary: " + totalFinalSalary);
-
-        String sqlADD = "INSERT INTO PaySlip (Employee_ID, Department_ID, AttendanceSlip_ID, Late_Deductions, Absent_Deductions, Loans, Final_Salary) VALUES (?,?,?,?,?,?,?)";
-        conni.addEmployee(sqlADD, emid, depid, att, LateDeduction, AbsentDeduction, loan1, totalFinalSalary);
+        
+        System.out.println("Month: ");
+        String month = sc.next();
+        
+        String sqlADD = "INSERT INTO PaySlip (Employee_ID, Department_ID, AttendanceSlip_ID, Late_Deductions, Absent_Deductions, Loans, Final_Salary, Month) VALUES (?,?,?,?,?,?,?,?)";
+        conni.addEmployee(sqlADD, emid, depid, att, LateDeduction, AbsentDeduction, loan1, totalFinalSalary,month);
     }
 
     public void viewPayslip() {
         String sql = "SELECT PaySlip.PaySlip_ID, Employee.First_Name, Employee.Last_Name, " +
                      "PaySlip.AttendanceSlip_ID AS PaySlip_Attendance_ID, " +
                      "Department.Department_Name, Department.Department_Head, " +
-                     "PaySlip.Late_Deductions, PaySlip.Absent_Deductions, PaySlip.Loans, PaySlip.Final_Salary " +
+                     "PaySlip.Late_Deductions, PaySlip.Absent_Deductions, PaySlip.Loans, PaySlip.Final_Salary, PaySlip.Month " +
                      "FROM PaySlip " +
                      "LEFT JOIN Employee ON Employee.Employee_ID = PaySlip.Employee_ID " +
                      "LEFT JOIN Department ON Department.Department_ID = PaySlip.Department_ID " +
                      "LEFT JOIN AttendanceSlip ON AttendanceSlip.AttendanceSlip_ID = PaySlip.AttendanceSlip_ID";
 
-        String[] header = {"PaySlip ID", "First Name", "Last Name", "Attendance Slip ID", "Department Name", "Department Head", "Late Deductions", "Absent Deduction", "Loan", "Final Salary"};
-        String[] column = {"PaySlip_ID", "First_Name", "Last_Name", "PaySlip_Attendance_ID", "Department_Name", "Department_Head", "Late_Deductions", "Absent_Deductions", "Loans", "Final_Salary"};
+        String[] header = {"PaySlip ID", "First Name", "Last Name", "Attendance Slip ID", "Department Name", "Department Head", "Late Deductions", "Absent Deduction", "Loan", "Final Salary","Month"};
+        String[] column = {"PaySlip_ID", "First_Name", "Last_Name", "PaySlip_Attendance_ID", "Department_Name", "Department_Head", "Late_Deductions", "Absent_Deductions", "Loans", "Final_Salary","Month"};
 
         Config conni = new Config();
         conni.viewdEmployee(sql, header, column);
     }
-    
+    public void viewEmployeeBYID(){
+        
+          Scanner sc = new Scanner(System.in);
+         Config conni = new Config();
+          int userId;
+             while (true) {
+        System.out.print("Enter Employee ID to view all salary: ");
+        if (sc.hasNextInt()) {
+            userId = sc.nextInt();
+            if (conni.getSingleValues("SELECT Employee_ID FROM Employee WHERE Employee_ID = ?", userId) != 0) {
+                break;
+            } else {
+                System.out.println("User with this ID does not exist.");
+            }
+        } else {
+            System.out.println("Invalid input. Please enter a valid numeric ID.");
+            sc.next(); // clear the invalid input
+        }
+    }
+
+        String view = "SELECT PaySlip.PaySlip_ID, Employee.First_Name, PaySlip.Month, Department.Department_Name, PaySlip.Final_Salary FROM PaySlip "
+                + "LEFT JOIN Employee ON Employee.Employee_ID = PaySlip.Employee_ID "
+                + "LEFT JOIN Department ON Department.Department_ID = PaySlip.Department_ID "
+                + "WHERE PaySlip.Employee_ID= ?";
+         
+        String[] header = {"PaysSlip ID","First Name","Month", "Department Name"," Final Salary"};
+        String[] columns = {"PaySlip_ID","First_Name","Month","Department_Name","Final_Salary"};
+         
+          conni.viewApplicantss(view, header, columns, userId);
+        
+    }
     
     public void mainPaySlip(){
         
@@ -140,14 +173,15 @@ public class PaySlip {
             System.out.println("");
             System.out.println("1. Release Payslip");
             System.out.println("2. View Payslip");
-            System.out.println("3. Logout");
+            System.out.println("3. View Employee by ID");
+            System.out.println("4. Log out");
         int choice;
             while (true) {
                 System.out.println("");
                 System.out.print("Enter choice: ");
                 if (sc.hasNextInt()) {
                     choice = sc.nextInt();
-                    if (choice >= 1 && choice <= 3) {
+                    if (choice >= 1 && choice <= 4) {
                         break;
                     } else {
                         System.out.println("Please enter a number between 1 and 5.");
@@ -167,9 +201,13 @@ public class PaySlip {
                     ps.viewPayslip();
                    break;
                 case 3:
-                    System.out.println("Exiting.....");
+                    Employee em = new Employee();
+                    em.viewEmployee();
+                   ps.viewEmployeeBYID();
                     break;
-         
+                case 4:
+                    System.out.println("Log out.....");
+                    break;
                 
             }
             System.out.println("");
