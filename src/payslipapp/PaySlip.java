@@ -147,7 +147,7 @@ public class PaySlip {
             }
         } else {
             System.out.println("Invalid input. Please enter a valid numeric ID.");
-            sc.next(); // clear the invalid input
+            sc.next(); 
         }
     }
 
@@ -156,8 +156,8 @@ public class PaySlip {
                 + "LEFT JOIN Department ON Department.Department_ID = PaySlip.Department_ID "
                 + "WHERE PaySlip.Employee_ID= ?";
          
-        String[] header = {"PaysSlip ID","First Name","Month", "Department Name"," Final Salary"};
-        String[] columns = {"PaySlip_ID","First_Name","Month","Department_Name","Final_Salary"};
+        String[] header = {"PaysSlip ID", "First Name", "Month", "Department Name", "Final Salary"};
+        String[] columns = {"PaySlip_ID", "First_Name", "Month", "Department_Name", "Final_Salary"};
          
           conni.viewApplicantss(view, header, columns, userId);
         
