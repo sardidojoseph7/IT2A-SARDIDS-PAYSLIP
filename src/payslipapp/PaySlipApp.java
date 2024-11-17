@@ -50,27 +50,8 @@ public class PaySlipApp {
            as.mainAttendanceSlip();
                 break;
             case 4:
-                System.out.print("Are you an HR?Yes or No: ");
-                        String res = sc.next();
-
-                        if (res.equalsIgnoreCase("yes")) {
-
-                        System.out.print("Enter HR password: ");
-                        String hrPassword = sc.next();
-
-                        final String HR_PASSWORD = "admin1234";
-
-
-                        if (hrPassword.equals(HR_PASSWORD)) {
-                           PaySlip ps = new PaySlip();
-                           ps.mainPaySlip();
-                            
-                        } else {
-                            System.out.println("Invalid HR password. Access denied.");
-                        }
-                    } else {
-                        System.out.println("You do not have permission to access HR-only features.");
-                    }
+                PaySlip ps = new PaySlip();
+                ps.mainPaySlip();              
                 break;
             case 5:
                 System.out.println("Are you sure you want to Exit? Yes or No: ");

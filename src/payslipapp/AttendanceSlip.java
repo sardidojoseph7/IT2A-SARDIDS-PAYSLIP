@@ -47,7 +47,7 @@ public class AttendanceSlip {
                         System.out.println("Selected Department doesn't exist.");
                     }
                 } else {
-                    System.out.println("Invalid input. Please enter a integer Department ID.");
+                    System.out.println("Invalid input. Please enter an integer Department ID.");
                     sc.next(); 
                 }
             }

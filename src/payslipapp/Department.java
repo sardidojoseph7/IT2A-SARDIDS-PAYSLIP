@@ -13,21 +13,93 @@ public class Department {
        Config conni =  new Config();
         Scanner sc = new Scanner(System.in);
 
+        String dname;
+        while (true) {
+            System.out.print("Enter Department Name: ");
+            dname = sc.nextLine();
+                if (!dname.isEmpty() && dname.matches("[a-zA-Z\\s]+")) {
+                     break;
+         }
+            System.out.println("Invalid department name. It must contain only letters and spaces.");
+        }
         
-       System.out.print("Enter Department Name: ");
-        String dname = sc.nextLine();
-        System.out.print("Department Head: ");
-        String fhead = sc.nextLine();
-        System.out.print("Contact Information: ");
-        String info = sc.nextLine();
-        System.out.print("Location: ");
-        String loc = sc.nextLine();
-        System.out.print("Basic Salary (Monthly) : ");
-        double salary = sc.nextDouble();
-        System.out.print("(LATE) Deduction Amount: ");
-        double amount = sc.nextDouble();
-        System.out.print("(ABSENT) Deduction Amount: ");
-        double ab = sc.nextDouble();
+        String fhead;
+        while (true) {
+            System.out.print("Department Head: ");
+            fhead = sc.nextLine();
+                if (!fhead.isEmpty() && fhead.matches("[a-zA-Z\\s]+")) {
+                     break;
+            }
+            System.out.println("Invalid name. It must contain only letters and spaces.");
+        }        
+        
+        String info;
+        while (true) {
+            System.out.print("Contact Information (+63) ");
+            info = sc.nextLine();
+                if (!info.isEmpty() && info.matches("\\+?[0-9\\-\\s]+") && info.length() >= 10) {
+                    break;
+            }
+            System.out.println("Invalid contact information. It must contain at least 10 digits and only numbers, dashes, or spaces.");
+        }
+        
+        String loc;
+        while (true) {
+            System.out.print("Location: ");
+            loc = sc.nextLine();
+                if (!loc.isEmpty() && loc.matches("\\d+(st|nd|rd|th) Floor")) {
+                    break;
+            }
+            System.out.println("Invalid location. It must follow the format like '2nd Floor', '3rd Floor', etc.");
+        }  
+        
+        double salary;
+        while (true) {
+            System.out.print("Basic Salary (Monthly) : ");
+                if (sc.hasNextDouble()) {
+                    salary = sc.nextDouble();
+                if (salary > 0) {
+                    break;
+                } else {
+            System.out.println("Salary must be a positive number.");
+         }
+                } else {
+           System.out.println("Invalid input. Please enter a numeric value for salary.");
+           sc.next();
+            }
+        }         
+           
+        double amount;
+        while (true) {
+            System.out.print("(LATE) Deduction Amount: ");
+                if (sc.hasNextDouble()) {
+                    amount = sc.nextDouble();
+                if (amount >= 0) {
+                    break;
+                } else {
+            System.out.println("Deduction amount cannot be negative.");
+        }           
+                } else {
+            System.out.println("Invalid input. Please enter a numeric value.");
+            sc.next(); 
+            }
+        }
+        
+        double ab;
+        while (true) {
+            System.out.print("(ABSENT) Deduction Amount: ");
+                if (sc.hasNextDouble()) {
+                    ab = sc.nextDouble();
+                if (ab >= 0) {
+                      break;
+                } else {
+            System.out.println("Deduction amount cannot be negative.");
+       }    
+                } else {
+            System.out.println("Invalid input. Please enter a numeric value.");
+            sc.next(); 
+            }
+        }         
         
         
         String sqladd = "INSERT INTO Department (Department_Name, Department_Head, Contact_Information, Location, Basic_Salary, Late_Deduction, Absent_Deduction) VALUES "
@@ -139,7 +211,7 @@ public class Department {
                         System.out.println("Selected Department  doesn't exist.");
                     }
                 } else {
-                    System.out.println("Invalid input. Please enter a integer Department ID.");
+                    System.out.println("Invalid input. Please enter an integer Department ID.");
                     sc.next(); 
                 }
             }

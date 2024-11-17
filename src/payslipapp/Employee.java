@@ -12,21 +12,89 @@ public class Employee {
         Config conni =  new Config();
         Scanner sc = new Scanner(System.in);
         
-        
+        String fname = "";
+        while (true) {
         System.out.print("Enter Employee First Name: ");
-        String fname = sc.next();
+        fname = sc.nextLine();
+         if (fname.matches("[A-Za-z]+")) {  
+                break;
+            } else {
+                System.out.println("Invalid First Name. Please enter only letters.");
+            }
+        }
+        
+        String lname = "";
+        while (true) {
         System.out.print("Enter Employee Last Name: ");
-        String lname = sc.next();
+        lname = sc.nextLine();
+         if (lname.matches("[A-Za-z]+")) {  
+                break;
+            } else {
+                System.out.println("Invalid Last Name. Please enter only letters.");
+            }
+        }
+        
+        String add = "";
+        while (true) {
         System.out.print("Address: ");
-        String add = sc.next();
-        System.out.print("Contact No. : ");
-        String num = sc.next();       
+        add = sc.nextLine();
+        if (add.matches("[A-Za-z,\\s]+")) {
+                break;
+            } else {
+                System.out.println("Invalid address. Please enter only letters, spaces, and commas (no numbers or special symbols).");
+            }
+        }
+        
+        String num = "";
+        while (true) {
+        System.out.print("Contact No. (+63): ");
+        num = sc.nextLine();       
+        if (num.matches("\\d{10}")) { 
+                break;
+            } else {
+                System.out.println("Invalid phone number. Please enter a valid 10-digit contact number.");
+            }
+        }
+        
+        int age = 0;
+        while (true) {
         System.out.print("Age: ");
-        int age = sc.nextInt();
+            if (sc.hasNextInt()) {
+        age = sc.nextInt();
+            if (age > 0) {
+            break;
+            } else {
+                System.out.println("Invalid age. Please enter a positive integer for age.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a valid integer for age.");
+                sc.next(); 
+            }
+        }
+        
+        sc.nextLine();
+        
+        String e = "";
+        while (true) {
         System.out.print("Email: ");
-        String e = sc.next();    
-         System.out.print("Status: ");
-        String stats = sc.next();
+        e = sc.nextLine();    
+            if (e.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {  
+                break;
+            } else {
+                System.out.println("Invalid email format. Please enter a valid email.");
+            }
+        }
+        
+        String stats = "";
+        while (true) {
+        System.out.print("Status (single, married, widowed, divorced): ");
+        stats = sc.nextLine().toLowerCase();  
+            if (stats.equals("single") || stats.equals("married") || stats.equals("widowed") || stats.equals("divorced")) {
+                break; 
+             } else {
+                System.out.println("Invalid status. Please enter one of the following: 'single', 'married', 'widowed', or 'divorced'.");
+            }
+        }
         
         String sqlAdd = "INSERT INTO Employee (First_Name, Last_Name, Address, Contact_No, Age, Email, Status) VALUES"
                 + "(?, ?, ?, ?, ?, ?, ?)";
@@ -43,7 +111,7 @@ public class Employee {
        
        
          Config conni =  new Config();
-        conni.viewdEmployee(view, headers,columns);
+        conni.viewdEmployee(view, headers,columns); 
         
         
     }
