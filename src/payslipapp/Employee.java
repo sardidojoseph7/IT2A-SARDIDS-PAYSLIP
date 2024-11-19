@@ -174,8 +174,16 @@ public class Employee {
                 }
             }
                 
-                System.out.print("Enter new address: ");
-                String newadd = sc.next();
+                String newadd;
+                while (true) {
+                    System.out.print("Enter new address: ");
+                    newadd = sc.next();
+                    if (newadd.matches("[A-Za-z,\\s]+")) {
+                        break;
+                    } else {
+                        System.out.println("Invalid new address. Please enter only letters, spaces, and commas (no numbers or special symbols).");
+                }
+            }
                 System.out.print("Enter new Contact No.: ");
                 String newnum = sc.next();
                 System.out.print("Enter new Age: ");

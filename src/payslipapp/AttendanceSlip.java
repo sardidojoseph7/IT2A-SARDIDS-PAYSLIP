@@ -49,19 +49,74 @@ public class AttendanceSlip {
                 } else {
                     System.out.println("Invalid input. Please enter an integer Department ID.");
                     sc.next(); 
-                }
-            }
+              }
+          }
 
        
-                
-       System.out.print("No of. Working Days: ");
-       int days = sc.nextInt();
-       System.out.print("No. of Late Days: ");
-       int late = sc.nextInt();
-       System.out.print("No. of Absences: ");
-       int absent = sc.nextInt();
-       System.out.print("Loan: ");
-       double loan = sc.nextDouble();
+       int days;    
+              while (true) {
+              System.out.print("No of. Working Days: ");
+              if (sc.hasNextInt()) {
+                 days = sc.nextInt();
+                 if (days >= 0 && days <= 31) {
+                     break;
+                 } else {
+                    System.out.println("Invalid number of working days. Enter a value between 0 and 31.");
+                 } 
+             } else {
+                    System.out.println("Invalid input. Please enter an integer value for working days.");
+                    sc.next();
+             }
+          }
+       
+       int late;
+              while (true) {       
+              System.out.print("No. of Late Days: ");
+              if (sc.hasNextInt()) {
+                 late = sc.nextInt();
+                 if (late >= 0 && late <= days) {
+                     break;
+                 } else {
+                     System.out.println("Invalid number of late days. Enter a value between 0 and " + days + ".");
+                 }
+             } else {
+                    System.out.println("Invalid input. Please enter an integer value for late days.");
+                    sc.next();
+             }
+          }
+       
+       int absent;
+              while (true) {
+              System.out.print("No. of Absences: ");
+              if (sc.hasNextInt()) {
+                 absent = sc.nextInt();
+                 if (absent >= 0 && (late + absent) <= days) {
+                     break;
+                 } else {
+                     System.out.println("Invalid number of absences. Ensure total late days and absences do not exceed " + days + ".");
+                 }
+             } else {
+                    System.out.println("Invalid input. Please enter an integer value for absences.");
+                    sc.next();
+             }
+          }
+                    
+       
+       double loan;
+               while (true) {
+               System.out.print("Loan: ");
+               if (sc.hasNextDouble()) {
+                  loan = sc.nextDouble();
+                 if (loan >= 0) {
+                     break;
+                 } else {
+                     System.out.println("Invalid loan amount. Loan cannot be negative.");
+                 }
+               } else {  
+                     System.out.println("Invalid input. Please enter a valid decimal value for the loan amount.");
+                     sc.next();
+             }
+          }
        
        
        
