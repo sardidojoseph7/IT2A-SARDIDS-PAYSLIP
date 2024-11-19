@@ -160,7 +160,7 @@ public class Department {
                     break;
                 case 3:
                     dp.viewDepartment();
-                   String sqlup = "UPDATE Department SET Department_Head = ?, Location = ?, Basic_Salary = ?, Late_Deduction = ?, Absent_Deduction = ? WHERE Department_ID = ?";
+                   String sqlup = "UPDATE Department SET Department_Head = ?, Contact_Information = ?, Location = ?, Basic_Salary = ?, Late_Deduction = ?, Absent_Deduction = ? WHERE Department_ID = ?";
                    
                    
                    int depid;
@@ -169,6 +169,7 @@ public class Department {
                 if (sc.hasNextInt()) {
                     depid = sc.nextInt();
                     if (conni.getSingleValues("SELECT Department_ID FROM Department WHERE Department_ID = ?", depid) != 0) {
+                        sc.nextLine();
                         break;
                     } else {
                         System.out.println("Selected Department doesn't exist.");
@@ -178,22 +179,101 @@ public class Department {
                     sc.next(); 
                 }
             }
+               
+                
+                
+                    String newhead;
+                    while (true) {
+                        System.out.print("Enter new Department Head: ");
+                        newhead = sc.nextLine();
+                        if (!newhead.isEmpty() && newhead.matches("[a-zA-Z\\s]+")) {
+                             break;
+                        } else {
+                            System.out.println("Invalid name. It must contain only letters and spaces.");
+                        }
+                    }
+                   
+                    String newinfo;
+                    while (true) {
+                        System.out.print("Enter new Contact Information (+63): ");
+                        newinfo = sc.nextLine();
+                        if (!newinfo.isEmpty() && newinfo.matches("\\+?[0-9\\-\\s]+") && newinfo.length() >= 10) {
+                                break;
+                        } else {
+                            System.out.println("Invalid contact information. It must contain at least 10 digits and only numbers, dashes, or spaces.");
+                        }
+                    }
                     
-                    System.out.print("Enter new Department Head: ");
-                    String newhead = sc.nextLine();
-                    System.out.print("Enter new Location: ");
-                    String newloc = sc.nextLine();
-                    System.out.print("Enter new Basic Salary (Monthly) : ");
-                    double newsal = sc.nextDouble();
-                    System.out.print("Enter new Late Deduction: ");
-                    double newlate = sc.nextDouble();
-                    System.out.print("Enter new Absent Deduction: ");
-                    double newabsent = sc.nextDouble();
+                        
+       
+                    
+                    String newloc;
+                    while (true) {
+                        System.out.print("Enter new Location: ");
+                        newloc = sc.nextLine();
+                        if (!newloc.isEmpty() && newloc.matches("\\d+(st|nd|rd|th) Floor")) {
+                            break;
+                        } else {
+                            System.out.println("Invalid location. It must follow the format like '2nd Floor', '3rd Floor', etc.");
+                        }
+                    }
+                        
+                    double newsal;    
+                    while (true) {
+                        System.out.print("Enter new Basic Salary (Monthly): ");
+                        if (sc.hasNextDouble()) {
+                        newsal = sc.nextDouble();
+                            if (newsal > 0) {
+                            sc.nextLine(); 
+                                break; 
+                                } else {
+                                    System.out.println("Salary must be a positive number.");
+                                }
+                            
+                        } else {
+                            System.out.println("Invalid input. Please enter a numeric value for salary.");
+                            sc.next(); 
+                        }
+                    }
+                    
+                    double newlate;
+                    while (true) {
+                        System.out.print("Enter new Late Deduction: ");
+                            if (sc.hasNextDouble()) {
+                            newlate = sc.nextDouble();
+                                if (newlate >= 0) {
+                                    sc.nextLine(); 
+                                    break; 
+                                } else {    
+                                    System.out.println("Deduction amount cannot be negative.");
+                                }
+                            } else {
+                                System.out.println("Invalid input. Please enter a numeric value.");
+                                sc.next();
+                            }
+                        }
+                            
+    
+                    double newabsent;
+                    while (true) {
+                        System.out.print("Enter new Absent Deduction: ");
+                            if (sc.hasNextDouble()) {
+                            newabsent = sc.nextDouble();
+                                 if (newabsent >= 0) {
+                                      sc.nextLine(); 
+                                      break;
+                                 } else {
+                                     System.out.println("Deduction amount cannot be negative.");
+                                 }
+                            } else {
+                                 System.out.println("Invalid input. Please enter a numeric value.");
+                                 sc.next();
+                            }
+                        }   
 
-
                     
                     
-                    conni.updateEmployee(sqlup, newhead, newloc, newsal, newlate, newabsent,depid);
+                    conni.updateEmployee(sqlup, newhead, newinfo, newloc, newsal, newlate, newabsent,depid);
                     break;
                 
                 case 4:

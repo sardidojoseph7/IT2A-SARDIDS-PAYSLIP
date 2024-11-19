@@ -203,14 +203,70 @@ public class AttendanceSlip {
                 }
             }
 
-                    System.out.print("Enter new no of working days: ");
-                    int nework = sc.nextInt();
-                    System.out.print("Enter new no of Later Days: ");
-                    int newlate = sc.nextInt();
-                    System.out.print("Enter new Absences: ");
-                    int newab = sc.nextInt();
-                    System.out.print("Enter  new Loan: ");
-                    double newloan = sc.nextDouble();
+                
+                    int nework;
+                    while (true) {
+                        System.out.print("Enter new number of Working Days: ");
+                        if (sc.hasNextInt()) {
+                            nework = sc.nextInt();
+                            if (nework >= 0 && nework <= 31) {
+                                break;
+                            } else {
+                                System.out.println("Invalid number of working days. Please enter a value between 0 and 31.");
+                            }
+                        } else {
+                            System.out.println("Invalid input. Please enter an integer value for working days.");
+                            sc.next(); 
+                        }
+                    }
+                    
+                    int newlate;
+                    while (true) {
+                        System.out.print("Enter new number of Late Days: ");
+                        if (sc.hasNextInt()) {
+                            newlate = sc.nextInt();
+                            if (newlate >= 0 && newlate <= nework) {
+                                break;
+                            } else {
+                                System.out.println("Invalid number of late days. Enter a value between 0 and " + nework + ".");
+                            }
+                        } else {
+                            System.out.println("Invalid input. Please enter an integer value for late days.");
+                            sc.next(); 
+                        }
+                    }
+                    
+                    int newab;
+                    while (true) {
+                        System.out.print("Enter new number of Absences: ");
+                        if (sc.hasNextInt()) {
+                            newab = sc.nextInt();
+                            if (newab >= 0 && (newlate + newab) <= nework) {
+                                break;
+                            } else {
+                                System.out.println("Invalid number of absences. Ensure total late days and absences do not exceed " + nework + ".");
+                            }
+                        } else {
+                            System.out.println("Invalid input. Please enter an integer value for absences.");
+                            sc.next(); 
+                        }
+                    }
+
+                    double newloan;
+                    while (true) {
+                        System.out.print("Enter new Loan amount: ");
+                        if (sc.hasNextDouble()) {
+                            newloan = sc.nextDouble();
+                            if (newloan >= 0) {
+                                break;
+                            } else {
+                                System.out.println("Invalid loan amount. Loan cannot be negative.");
+                            }
+                        } else {
+                            System.out.println("Invalid input. Please enter a valid decimal value for the loan amount.");
+                            sc.next(); 
+                        }
+                    }
                     
                     conni.updateEmployee(sqlupdate, nework, newlate, newab, newloan, atid);
                     

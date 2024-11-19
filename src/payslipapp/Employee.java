@@ -174,27 +174,76 @@ public class Employee {
                 }
             }
                 
+          
                 String newadd;
                 while (true) {
                     System.out.print("Enter new address: ");
                     newadd = sc.next();
-                    if (newadd.matches("[A-Za-z,\\s]+")) {
+                    if (newadd.matches("[A-Za-z0-9,\\s]+")) {
                         break;
                     } else {
-                        System.out.println("Invalid new address. Please enter only letters, spaces, and commas (no numbers or special symbols).");
+                        System.out.println("Invalid address. Use only letters, numbers, spaces, and commas.");
                 }
             }
-                System.out.print("Enter new Contact No.: ");
-                String newnum = sc.next();
-                System.out.print("Enter new Age: ");
-                int newage = sc.nextInt();
-                System.out.print("Enter new Email: ");
-                String newemai = sc.next();
-                System.out.print("Enter new Status: ");
-                String newstats = sc.next();
+                
+                String newnum;
+                while (true) {
+                    System.out.print("Enter new Contact No.(+63): ");
+                    newnum = sc.next();
+                    if (newnum.matches("\\d{10}")) {
+                        break;
+                    } else {
+                        System.out.println("Invalid Contact No. Please enter a 10-digit number.");
+                    }
+                }
+                
+                int newage; 
+                while (true) {
+                    System.out.print("Enter new Age (18-65): ");
+                    if (sc.hasNextInt()) {
+                    newage = sc.nextInt();
+                        if (newage >= 18 && newage <= 65) {
+                             break;
+                        } else {
+                            System.out.println("Age must be between 18 and 65.");
+                        }
+                        
+                    } else {
+                        System.out.println("Invalid input. Please enter a valid age.");
+                        sc.next();
+                    }
+                }
+                    
+                 sc.nextLine(); 
+               
+                String newemai; 
+                while (true) {
+                    System.out.print("Enter new Email: ");
+                    newemai = sc.nextLine();
+                    if (newemai.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+                        break;
+                    } else {
+                        System.out.println("Invalid email format. Example: example@domain.com");
+                    }
+                }
+        
+                
+                String newstats;
+                while (true) {
+                    System.out.print("Enter new Status (single, married, widowed, divorced): ");
+                    newstats = sc.nextLine().trim().toLowerCase(); 
+                    if (newstats.equals("single") || newstats.equals("married") || 
+                    newstats.equals("widowed") || newstats.equals("divorced")) {
+                         break;
+                    } else {
+                        System.out.println("Invalid status. Please enter one of the following: 'single', 'married', 'widowed', or 'divorced'.");
+                    }
+                }
+                   
                 
                 conni.updateEmployee(sqlUPDATE, newadd, newnum, newage, newemai, newstats,idem );
                 break;
+            
             case 4:
                  ep.viewEmployee();
                  
@@ -237,3 +286,4 @@ public class Employee {
     
     
 }
+        
