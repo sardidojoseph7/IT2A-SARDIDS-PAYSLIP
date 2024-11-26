@@ -54,12 +54,20 @@ public class PaySlipApp {
                 ps.mainPaySlip();              
                 break;
             case 5:
-                System.out.println("Are you sure you want to Exit? Yes or No: ");
-                String response = sc.next();
-                if(response.equalsIgnoreCase("yes")){
-                    exit = false;
-                }
-                break;
+                    do {
+                        System.out.print("\nExit Selected.... type yes to continue: ");
+                        String res = sc.next();
+
+                        if (res.equalsIgnoreCase("yes")) {
+                            exit = false;
+                            break; 
+                        } else if (res.equalsIgnoreCase("no")) {
+                            break;
+                        } else {
+                            System.out.println("Invalid input. Please enter a valid 'yes' or 'no'.");
+                        }
+                    } while (true); 
+                    break;
             
             
             

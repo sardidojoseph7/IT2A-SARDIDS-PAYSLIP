@@ -11,6 +11,7 @@ public class Employee {
         
         Config conni =  new Config();
         Scanner sc = new Scanner(System.in);
+       
         
         String fname = "";
         while (true) {
@@ -121,8 +122,9 @@ public class Employee {
         Employee ep = new Employee();
          Config conni =  new Config();
         Scanner sc = new Scanner(System.in);
+        boolean exit = true;
 
-        String res;
+        
         do{
         System.out.println("1. Add Employee");
         System.out.println("2. View Employee");
@@ -178,7 +180,8 @@ public class Employee {
                 String newadd;
                 while (true) {
                     System.out.print("Enter new address: ");
-                    newadd = sc.next();
+                    sc.nextLine(); 
+                    newadd = sc.nextLine();
                     if (newadd.matches("[A-Za-z0-9,\\s]+")) {
                         break;
                     } else {
@@ -270,16 +273,26 @@ public class Employee {
                 
                 break;
             case 5:
-                System.out.println("Exiting.....");
-                break;
+                do {
+                        System.out.print("\nExit Selected.... type yes to continue: ");
+                        String res = sc.next();
+
+                        if (res.equalsIgnoreCase("yes")) {
+                            exit = false;
+                            break; 
+                        } else if (res.equalsIgnoreCase("no")) {
+                            break;
+                        } else {
+                            System.out.println("Invalid input. Please enter a valid 'yes' or 'no'.");
+                        }
+                    } while (true); 
+                    break;
             
             
         }
         
-        System.out.println("");
-        System.out.print("Do you want to continue? Yes or No: ");
-        res = sc.next();
-        }while(res.equalsIgnoreCase("yes"));        
+      
+        }while(exit);        
         
     }
     

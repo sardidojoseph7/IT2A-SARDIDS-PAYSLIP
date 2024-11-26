@@ -124,7 +124,7 @@ public class Department {
         Scanner sc = new Scanner(System.in);
  
         
-        String res;       
+        boolean exit = true;      
         do{
         System.out.println("1. Add Department");
         System.out.println("2. View Deparment");
@@ -299,17 +299,29 @@ public class Department {
                     conni.deleteEmployee(sqldel, del);
                     break;
                 case 5:
-                    System.out.println("Exiting.....");
+                    do {
+                        System.out.print("\nExit Selected.... type yes to continue: ");
+                        String res = sc.next();
+
+                        if (res.equalsIgnoreCase("yes")) {
+                            exit = false;
+                            break; 
+                        } else if (res.equalsIgnoreCase("no")) {
+                            break;
+                        } else {
+                            System.out.println("Invalid input. Please enter a valid 'yes' or 'no'.");
+                        }
+                    } while (true); 
                     break;
+            
                 
                 
                 
                 
             }
-            System.out.println("");
-            System.out.print("Do you want to continue? Yes or No: ");
-            res = sc.next();
-    }while(res.equalsIgnoreCase("yes"));
+            
+            
+    }while(exit);
         
         
     }

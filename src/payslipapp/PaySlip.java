@@ -184,7 +184,7 @@ public class PaySlip {
                     if (choice >= 1 && choice <= 4) {
                         break;
                     } else {
-                        System.out.println("Please enter a number between 1 and 5.");
+                        System.out.println("Please enter a number between 1 and 4.");
                     }
                 } else {
                     System.out.println("Invalid input. Please enter a valid number.");

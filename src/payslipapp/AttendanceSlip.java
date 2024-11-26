@@ -147,9 +147,9 @@ public class AttendanceSlip {
           Config conni = new Config();
          Scanner sc = new Scanner(System.in);
         AttendanceSlip as = new AttendanceSlip();
+        boolean exit = true;
         
         
-        String res;
         do{
         System.out.println("1. Add Attendance Slip");
         System.out.println("2. View Attendance Slip");
@@ -295,14 +295,26 @@ public class AttendanceSlip {
                     conni.deleteEmployee(sqldelete, del);
                     break;
                 case 5:
-                    System.out.println("Exiting......");
+                    do {
+                        System.out.print("\nExit Selected.... type yes to continue: ");
+                        String res = sc.next();
+
+                        if (res.equalsIgnoreCase("yes")) {
+                            exit = false;
+                            break; 
+                        } else if (res.equalsIgnoreCase("no")) {
+                            break;
+                        } else {
+                            System.out.println("Invalid input. Please enter a valid 'yes' or 'no'.");
+                        }
+                    } while (true); 
                     break;
+            
                 
             }
-            System.out.println("");
-            System.out.print("Do you want to continue? Yes or No: ");
-            res = sc.next();
-    }while(res.equalsIgnoreCase("yes"));
+          
+            
+    }while(exit);
         
     }
     
